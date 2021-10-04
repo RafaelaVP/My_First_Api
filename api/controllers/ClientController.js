@@ -1,8 +1,10 @@
 const modelClient = require('../models/ClientTable')
 const modelCity = require('../models/CityTable')
 const clients = require('../models/ClientTable')
+const test = require('./age')
 
 class ClientController{
+
    async get(req,res){
         try {
             const clients = await modelClient.findAll()
@@ -34,7 +36,7 @@ class ClientController{
             })
         }
     }
-    async put(req,res){
+    async patch(req,res){
         try {
             const {id} = req.params
             const {name,city,gender,birthdate} = req.body
@@ -79,6 +81,9 @@ class ClientController{
                     id:id
                 },
             })
+            if(!client) res.status(404).json({
+                message : 'Not found'
+            })
             const city = await modelCity.findOne({
                 where:{
                     id:client.cities
@@ -86,7 +91,7 @@ class ClientController{
             })
             const response = {
                name:client.name,
-               birthdate: client.birthdate,
+               birthdate: test.calculate(client.birthdate),
                gender: client.gender,
                cities: {
                    name:city.name,
@@ -103,7 +108,6 @@ class ClientController{
 
         }
     }
-
     async getNameClient(req,res){
         try {
             const {human} = req.params
@@ -113,7 +117,26 @@ class ClientController{
                     name:human
                 },
             })
-            return res.status(200).send(nameClient)
+            if(!client) res.status(404).json({
+                message : 'Not found'
+            })
+            const city = await modelCity.findOne({
+                where:{
+                     id:nameClient.cities
+                }
+            })
+            const response = {
+                name:nameClient.name,
+                birthdate:nameClient.birthdate,
+                gender:nameClient.gender,
+                cities: {
+                    name:city.name,
+                    state:city.state
+
+                }
+
+            }
+            return res.status(200).send(response)
 
         } catch (error) {
             return res.status(400).json({
@@ -125,5 +148,6 @@ class ClientController{
 
 
 }
+
 
 module.exports = new ClientController()
