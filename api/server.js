@@ -2,4 +2,7 @@ const app = require('./index')
 const port = 5000
 
 
-app.listen(port,() => console.log(' A api está bombando!'))
+app.listen(port,() => console.log(' Api running!'))
+
+
+

@@ -25,7 +25,7 @@ class CityController{
             })
         }
     }
-    async put(req,res){
+    async patch(req,res){
         try {
             const {id} = req.params
             const {name,state} = req.body
