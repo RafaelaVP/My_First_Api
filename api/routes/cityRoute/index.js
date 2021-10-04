@@ -14,5 +14,8 @@ routes.get ('/:id', CityController.getId)
 
 routes.get ('/name/:place', CityController.getName)
 
+routes.get ('/state/:find', CityController.getState)
+
+
 
 module.exports = routes

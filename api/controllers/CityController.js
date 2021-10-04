@@ -79,11 +79,11 @@ class CityController{
     }
     async getName(req,res){
         try {
-            const {place} = req.params
-             console.log(place)
+            const {find} = req.params
+             console.log(find)
              const nameCity = await modelCity.findOne({
                 where:{
-                    name:place
+                    name:find
                 },
             })
             return res.status(200).send(nameCity)
@@ -95,7 +95,24 @@ class CityController{
 
         }
     }
+    async getState(req,res){
+        try {
+            const {find} = req.params
+             console.log(find)
+             const stateCity = await modelCity.findOne({
+                where:{
+                    state:find
+                },
+            })
+            return res.status(200).send(stateCity)
 
+        } catch (error) {
+            return res.status(400).json({
+                message:'no located'
+            })
+
+        }
+    }
 }
 
 module.exports = new CityController()
