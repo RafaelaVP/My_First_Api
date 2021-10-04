@@ -99,7 +99,7 @@ class CityController{
         try {
             const {find} = req.params
              console.log(find)
-             const stateCity = await modelCity.findOne({
+             const stateCity = await modelCity.findAll({
                 where:{
                     state:find
                 },
