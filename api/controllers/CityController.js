@@ -80,8 +80,7 @@ class CityController{
     async getName(req,res){
         try {
             const {find} = req.params
-             console.log(find)
-             const nameCity = await modelCity.findOne({
+            const nameCity = await modelCity.findOne({
                 where:{
                     name:find
                 },
@@ -98,8 +97,7 @@ class CityController{
     async getState(req,res){
         try {
             const {find} = req.params
-             console.log(find)
-             const stateCity = await modelCity.findAll({
+            const stateCity = await modelCity.findAll({
                 where:{
                     state:find
                 },
